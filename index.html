@@ -190,12 +190,38 @@ nav.scrolled {
   align-items: center;
   overflow: hidden;
 }
+/* ===== CAR DRIVE-IN ANIMATION ===== */
 .helo-img1 {
   flex: 1;
-  max-width: 90%;
+  max-width: 45%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+
+  /* เริ่มต้นซ่อนอยู่ฝั่งขวา */
+  opacity: 0;
+  transform: translateX(200px);
+
+  /* animation */
+  animation: driveIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+
+@keyframes driveIn {
+  0% {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(-20px); /* overshoot นิดนึง เหมือนเบรก */
+  }
+  80% {
+    transform: translateX(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .helo-img1 img {
@@ -204,6 +230,19 @@ nav.scrolled {
   object-fit: contain;
   display: block;
 
+  /* เงาใต้รถ เหมือนวิ่งบนถนน */
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+}
+
+/* เพิ่ม idle bobbing หลังจากรถจอดแล้ว */
+.helo-img1.parked {
+  animation: driveIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards,
+             idleFloat 3s ease-in-out 2s infinite;
+}
+
+@keyframes idleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
 }
 .hero-bg {
   position: absolute; inset: 0;
@@ -1414,6 +1453,14 @@ footer {
 <a href="tel:+6699-815-1884" class="float-call" title="Call Now">📞</a>
 
 <script>
+  // รอให้ driveIn animation จบก่อน แล้วค่อย float
+  window.addEventListener('load', () => {
+    const car = document.querySelector('.helo-img1');
+    // 0.8s delay + 1.2s animation = 2s รวม
+    setTimeout(() => {
+      car.classList.add('parked');
+    }, 2000);
+  });
   // ===== CURSOR =====
   const cursor = document.getElementById('cursor');
   const cursorRing = document.getElementById('cursorRing');
