@@ -925,7 +925,16 @@
     body { cursor: auto; }
     .cursor, .cursor-ring { display: none; }
   }
-
+  .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        url('images/car.png') center/cover no-repeat;
+      transform: scale(1.1);
+      transition: transform 8s ease;
+      filter: brightness(0.35) saturate(0.8);
+      background-size: 100%;
+    }
+  #hero.loaded .hero-bg { transform: scale(1.0); }
   /* Mobile Nav Menu */
   .mobile-nav {
     display: none;
@@ -956,6 +965,11 @@
     background: none; border: none;
     line-height: 1;
   }
+
+  .carousel-slide {
+   width: 100%;
+   height: auto;
+  }
 </style>
 </head>
 <body>
@@ -970,11 +984,11 @@
 <!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-close" onclick="closeMobileNav()">✕</button>
-  <a href="#fleet" onclick="closeMobileNav()">Fleet</a>
-  <a href="#services" onclick="closeMobileNav()">Services</a>
-  <a href="#about" onclick="closeMobileNav()">About</a>
-  <a href="#process" onclick="closeMobileNav()">Process</a>
-  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  <a href="#fleet" onclick="closeMobileNav()">ผลงาน</a>
+  <a href="#services" onclick="closeMobileNav()">บริการของเรา</a>
+  <a href="#about" onclick="closeMobileNav()">เกี่ยวกับเรา</a>
+  <a href="#process" onclick="closeMobileNav()">ขั้นตอนการทำงาน</a>
+  <a href="#contact" onclick="closeMobileNav()">ติดต่อเรา</a>
 </div>
 
 <!-- Navbar -->
